@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: flightpath-api
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn -w 2 --threads 4 -b 0.0.0.0:$PORT --timeout 30 app:app
+    envVars:
+      - key: AVIATION_STACK_API_KEY
+        sync: false          # set manually in Render dashboard
+      - key: ALLOWED_ORIGINS
+        value: https://your-app.vercel.app
